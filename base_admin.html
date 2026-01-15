@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Admin Panel - SMA Muhammadiyah 4 Songgon{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A',
+            secondary: '#14B8A6',
+            accent: '#F97316',
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" rel="stylesheet">
+<head>
+  ...
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-emerald-50 to-orange-50 min-h-screen">
+
+<div class="flex min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="w-64 bg-gradient-to-b from-primary to-secondary text-white shadow-xl flex flex-col p-6 space-y-4 rounded-r-2xl">
+    <h1 class="text-2xl font-extrabold mb-6">🛠️ Admin Panel</h1>
+
+    <nav class="flex flex-col gap-2 text-sm">
+
+      <a href="/admin/dashboard" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+      </a>
+
+      <a href="/admin/berita" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="newspaper" class="w-5 h-5"></i> Berita
+      </a>
+
+      <a href="/admin/alumni" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="users" class="w-5 h-5"></i> Alumni
+      </a>
+
+      <a href="/admin/guru" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-check" class="w-5 h-5"></i> Data Guru
+      </a>
+
+      <!-- ✅ MENU BARU: KELOLA USERS -->
+      <a href="/admin/users" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-cog" class="w-5 h-5"></i> Kelola Users
+      </a>
+
+      <a href="/admin/nilai" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+     <i data-lucide="book-open" class="w-5 h-5"></i> Nilai Siswa
+     </a>
+
+      <a href="/admin/ekstrakurikuler" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="trophy" class="w-5 h-5"></i> Ekstrakurikuler
+      </a>
+
+      <a href="/admin/galeri" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="image" class="w-5 h-5"></i> Galeri
+      </a>
+      <a href="/admin/pendaftaran" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i> Pendaftaran
+      </a>
+
+      <hr class="my-3 border-white/40">
+
+      <a href="/admin/logout" class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-500 transition text-red-200">
+        <i data-lucide="log-out" class="w-5 h-5"></i> Logout
+      </a>
+
+    </nav>
+  </aside>
+
+    <!-- Main Content -->
+  <main class="flex-1 p-8">
+
+    <!-- ================= FLASH MESSAGE ADMIN ================= -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-3 mb-6">
+          {% for category, msg in messages %}
+            <div class="p-4 rounded-xl shadow
+              {% if category == 'success' %}bg-green-100 text-green-800
+              {% elif category == 'danger' %}bg-red-100 text-red-800
+              {% elif category == 'warning' %}bg-yellow-100 text-yellow-800
+              {% else %}bg-blue-100 text-blue-800{% endif %}">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <!-- ====================================================== -->
+
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
