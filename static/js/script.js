@@ -1,0 +1,1 @@
+console.log("Website SMA MUHAMMADIYAH 4 SONGGON aktif.");

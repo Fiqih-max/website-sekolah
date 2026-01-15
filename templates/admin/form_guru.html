@@ -1,0 +1,141 @@
+{% extends 'admin/base_admin.html' %}
+{% block content %}
+
+<div class="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-500 to-cyan-400 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-3xl bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl">
+
+    <!-- Judul -->
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      {{ aksi }} Data Guru
+    </h2>
+
+    <!-- Foto Lama -->
+    {% if guru and guru['foto'] %}
+    <div class="mb-8 text-center">
+      <label class="block mb-3 font-semibold text-gray-700">
+        Foto Saat Ini
+      </label>
+      <img
+        src="{{ url_for('static', filename='uploads/guru/' ~ guru['foto']) }}"
+        class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-indigo-500 shadow"
+      >
+    </div>
+    {% endif %}
+
+    <!-- Form -->
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      class="space-y-6"
+    >
+
+      <!-- NIP -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          NIP
+        </label>
+        <input
+          type="text"
+          name="nip"
+          value="{{ guru['nip'] if guru else '' }}"
+          placeholder="Nomor Induk Pegawai"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >
+      </div>
+
+      <!-- Nama -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Nama Guru
+        </label>
+        <input
+          type="text"
+          name="nama"
+          value="{{ guru['nama'] if guru else '' }}"
+          required
+          placeholder="Nama lengkap guru"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >
+      </div>
+
+      <!-- Jabatan / Mapel -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Jabatan / Mata Pelajaran
+        </label>
+        <input
+          type="text"
+          name="mapel"
+          value="{{ guru['mapel'] if guru else '' }}"
+          required
+          placeholder="Contoh: Guru Matematika"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >
+      </div>
+
+      <!-- Foto -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Foto Guru
+        </label>
+
+        <label
+          class="flex items-center justify-center border-2 border-dashed
+                 border-indigo-300 rounded-xl p-4 cursor-pointer
+                 hover:bg-indigo-50 transition"
+        >
+          <span class="text-indigo-600 font-medium">
+            📸 Klik untuk upload foto
+          </span>
+          <input type="file" name="foto" class="hidden">
+        </label>
+      </div>
+
+      <!-- Kontak -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Kontak
+        </label>
+        <input
+          type="text"
+          name="kontak"
+          value="{{ guru['kontak'] if guru else '' }}"
+          placeholder="No HP / Email"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >
+      </div>
+
+      <!-- Tombol -->
+      <div class="flex justify-between items-center pt-6">
+        <button
+          type="submit"
+          class="bg-gradient-to-r from-indigo-600 to-blue-600
+                 text-white px-8 py-3 rounded-xl font-semibold
+                 hover:scale-105 hover:shadow-xl transition"
+        >
+          {{ aksi }}
+        </button>
+
+        <a
+          href="{{ url_for('admin_guru') }}"
+          class="text-gray-600 hover:text-indigo-600 font-medium transition"
+        >
+          ← Kembali
+        </a>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

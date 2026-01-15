@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kelola Nilai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A',   /* Navy gelap */
+            secondary: '#14B8A6', /* Teal lembut */
+            accent: '#F97316',    /* Orange vibrant */
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-emerald-50 to-orange-50 min-h-screen">
+
+<div class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-primary to-secondary text-white shadow-xl flex flex-col p-6 space-y-4 rounded-r-2xl">
+    <h1 class="text-2xl font-extrabold text-white mb-6">🛠️ Admin Panel</h1>
+    <nav class="flex flex-col gap-2 text-sm">
+      <a href="/admin/dashboard" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+      </a>
+      <a href="/admin/berita" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="newspaper" class="w-5 h-5"></i> Berita
+      </a>
+      <a href="/admin/alumni" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="users" class="w-5 h-5"></i> Alumni
+      </a>
+      <a href="/admin/ekstrakurikuler" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="trophy" class="w-5 h-5"></i> Ekstrakurikuler
+      </a>
+      <a href="/admin/galeri" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="image" class="w-5 h-5"></i> Galeri
+      </a>
+      <a href="/admin/nilai" class="flex items-center gap-2 p-3 rounded-lg bg-accent text-white">
+        <i data-lucide="bar-chart" class="w-5 h-5"></i> Nilai
+      </a>
+      <a href="/admin/pendaftaran" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent hover:text-white transition">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i> Pendaftaran
+      </a>
+      <hr class="my-3 border-white/50">
+      <a href="/admin/logout" class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-500 hover:text-white transition text-red-200">
+        <i data-lucide="log-out" class="w-5 h-5"></i> Logout
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <div class="bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-xl">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold text-primary">Kelola Nilai</h2>
+        <a href="{{ url_for('tambah_nilai') }}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md transition">
+          + Tambah Nilai
+        </a>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full border border-gray-300 rounded-lg overflow-hidden">
+          <thead class="bg-gradient-to-r from-primary to-secondary text-white">
+            <tr>
+              <th class="p-3 border">#</th>
+              <th class="p-3 border">Nama</th>
+              <th class="p-3 border">Mata Pelajaran</th>
+              <th class="p-3 border">Nilai</th>
+              <th class="p-3 border text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white text-gray-800">
+            {% for n in nilai %}
+            <tr class="even:bg-gray-50 hover:bg-emerald-50 border-t transition">
+              <td class="p-3 border">{{ loop.index }}</td>
+              <td class="p-3 border">{{ n.nama }}</td>
+              <td class="p-3 border">{{ n.mapel }}</td>
+              <td class="p-3 border">{{ n.nilai }}</td>
+              <td class="p-3 border space-x-2 text-center">
+                <a href="{{ url_for('edit_nilai', id=n.id) }}" class="text-blue-600 hover:text-blue-800 transition">Edit</a> |
+                <a href="{{ url_for('hapus_nilai', id=n.id) }}" class="text-red-600 hover:text-red-800 transition" onclick="return confirm('Hapus data ini?')">Hapus</a>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="p-4 text-center text-gray-500">Belum ada data nilai.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

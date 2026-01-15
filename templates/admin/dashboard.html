@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A',
+            secondary: '#14B8A6',
+            accent: '#F97316',
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gradient-to-br from-sky-50 via-emerald-50 to-orange-50">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="w-64 bg-gradient-to-b from-primary to-secondary text-white shadow-xl flex flex-col p-6 space-y-4 rounded-r-2xl">
+    <h1 class="text-2xl font-extrabold mb-6">🛠️ Admin Panel</h1>
+
+    <nav class="flex flex-col gap-2 text-sm">
+
+      <a href="/admin/dashboard" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+      </a>
+
+      <a href="/admin/berita" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="newspaper" class="w-5 h-5"></i> Berita
+      </a>
+
+      <a href="/admin/alumni" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="users" class="w-5 h-5"></i> Alumni
+      </a>
+
+      <a href="/admin/guru" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-check" class="w-5 h-5"></i> Data Guru
+      </a>
+
+      <a href="/admin/users" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-cog" class="w-5 h-5"></i> Kelola Users
+      </a>
+
+      <a href="/admin/nilai" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+     <i data-lucide="book-open" class="w-5 h-5"></i> Nilai Siswa
+     </a>
+
+      <a href="/admin/ekstrakurikuler" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="trophy" class="w-5 h-5"></i> Ekstrakurikuler
+      </a>
+
+      <a href="/admin/galeri" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="image" class="w-5 h-5"></i> Galeri
+      </a>
+
+      <a href="/admin/pendaftaran" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i> Pendaftaran
+      </a>
+
+      <hr class="my-3 border-white/40">
+
+      <a href="/admin/logout" class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-500 transition text-red-200">
+        <i data-lucide="log-out" class="w-5 h-5"></i> Logout
+      </a>
+
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 p-8">
+    {% if pendaftar_baru > 0 %}
+<div class="mb-6 bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-lg">
+  ⚠️ <b>{{ pendaftar_baru }}</b> pendaftar baru belum diproses
+</div>
+{% endif %}
+
+    <!-- ===== WELCOME SECTION (SUDAH DIGABUNG & DIPERCANTIK) ===== -->
+    <div class="mb-6">
+      <h2 class="text-4xl font-extrabold text-primary flex items-center gap-3">
+        Selamat Datang di Admin SMA 4 Songgon
+        <span class="animate-bounce">👋</span>
+      </h2>
+
+      <div class="mt-2 flex items-center gap-3 text-sm text-gray-600">
+        <span class="px-3 py-1 rounded-full bg-secondary/20 text-secondary font-medium">
+          Dashboard Admin
+        </span>
+        <span class="flex items-center gap-1">
+          <i data-lucide="school" class="w-4 h-4"></i>
+          Sistem Informasi Sekolah
+        </span>
+      </div>
+
+      <div class="h-1 w-24 bg-gradient-to-r from-secondary to-accent rounded-full mt-4"></div>
+    </div>
+    <!-- ===== END WELCOME ===== -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  <!-- Pendaftaran -->
+  <a href="/admin/pendaftaran">
+    <div class="bg-gradient-to-br from-secondary to-primary text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+      <div class="flex justify-between mb-3">
+        <h3 class="text-xl font-semibold">Pendaftaran</h3>
+        <i data-lucide="clipboard-list"></i>
+      </div>
+      <p class="text-4xl font-bold">{{ total_pendaftar }}</p>
+    </div>
+  </a>
+
+  <!-- Berita -->
+  <a href="/admin/berita">
+    <div class="bg-gradient-to-br from-accent to-orange-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+      <div class="flex justify-between mb-3">
+        <h3 class="text-xl font-semibold">Berita</h3>
+        <i data-lucide="newspaper"></i>
+      </div>
+      <p class="text-4xl font-bold">{{ total_berita }}</p>
+    </div>
+  </a>
+
+  <!-- Alumni -->
+  <a href="/admin/alumni">
+    <div class="bg-gradient-to-br from-purple-600 to-pink-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+      <div class="flex justify-between mb-3">
+        <h3 class="text-xl font-semibold">Alumni</h3>
+        <i data-lucide="users"></i>
+      </div>
+      <p class="text-4xl font-bold">{{ total_alumni }}</p>
+    </div>
+  </a>
+
+  <!-- Data Guru -->
+  <a href="/admin/guru">
+    <div class="bg-gradient-to-br from-indigo-600 to-fuchsia-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+      <div class="flex justify-between mb-3">
+        <h3 class="text-xl font-semibold">Data Guru</h3>
+        <i data-lucide="user-check"></i>
+      </div>
+      <p class="text-4xl font-bold">{{ total_guru }}</p>
+    </div>
+  </a>
+</div>
+
+  </main>
+</div>
+<a href="/admin/users">
+  <div class="bg-gradient-to-br from-slate-600 to-gray-800 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+    <div class="flex justify-between mb-3">
+      <h3 class="text-xl font-semibold">Users</h3>
+      <i data-lucide="user-cog"></i>
+    </div>
+    <p class="text-4xl font-bold">{{ total_users }}</p>
+  </div><a href="/admin/nilai">
+  <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+    <div class="flex justify-between mb-3">
+      <h3 class="text-xl font-semibold">Nilai Siswa</h3>
+      <i data-lucide="book-open"></i>
+    </div>
+    <p class="text-4xl font-bold">{{ total_nilai }}</p>
+  </div>
+
+</a><a href="/admin/ekstrakurikuler">
+  <div class="bg-gradient-to-br from-green-600 to-emerald-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+    <div class="flex justify-between mb-3">
+      <h3 class="text-xl font-semibold">Ekstrakurikuler</h3>
+      <i data-lucide="trophy"></i>
+    </div>
+    <p class="text-4xl font-bold">{{ total_ekstra }}</p>
+  </div>
+</a>
+
+</a>
+<a href="/admin/galeri">
+  <div class="bg-gradient-to-br from-pink-600 to-rose-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition">
+    <div class="flex justify-between mb-3">
+      <h3 class="text-xl font-semibold">Galeri</h3>
+      <i data-lucide="image"></i>
+    </div>
+    <p class="text-4xl font-bold">{{ total_galeri }}</p>
+  </div>
+</a>
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

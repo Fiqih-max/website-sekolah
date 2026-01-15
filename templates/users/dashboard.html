@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Siswa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --primary:#16a34a;
+  --primary-dark:#15803d;
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:'Segoe UI',system-ui,sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:#fff;
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.topbar h3{
+  margin:0;
+  font-size:18px;
+}
+
+.logout{
+  background:rgba(255,255,255,.18);
+  padding:10px 18px;
+  border-radius:14px;
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.logout:hover{
+  background:rgba(255,255,255,.28);
+}
+
+/* ===== CONTAINER ===== */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:24px;
+}
+
+/* ===== WELCOME ===== */
+.welcome{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  padding:28px;
+  border-radius:26px;
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+  margin-bottom:26px;
+}
+
+.welcome h2{
+  margin:0 0 6px;
+  font-size:24px;
+}
+
+.welcome p{
+  opacity:.9;
+}
+
+/* ===== INFO CARDS ===== */
+.info{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.info-card{
+  background:var(--card);
+  padding:22px;
+  border-radius:22px;
+  box-shadow:0 12px 25px rgba(0,0,0,.08);
+}
+
+.info-card h4{
+  margin:0 0 10px;
+  color:var(--primary-dark);
+}
+
+.info-card p{
+  margin:6px 0;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ===== MENU ===== */
+.menu-title{
+  font-size:18px;
+  margin-bottom:14px;
+  font-weight:600;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:18px;
+}
+
+.menu-item{
+  background:var(--card);
+  padding:24px 18px;
+  border-radius:24px;
+  text-align:center;
+  box-shadow:0 14px 30px rgba(0,0,0,.1);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.menu-item:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 40px rgba(0,0,0,.14);
+}
+
+.menu-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.menu-item h4{
+  margin:6px 0;
+  font-size:16px;
+}
+
+.menu-item p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .welcome h2{
+    font-size:20px;
+  }
+  .menu{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h3>Dashboard Siswa</h3>
+  <a href="{{ url_for('user_logout') }}" class="logout">Logout</a>
+</div>
+
+<div class="container">
+
+  <!-- WELCOME -->
+  <div class="welcome">
+    <h2>Halo, {{ nama }} 👋</h2>
+    <p>Kelas {{ kelas }} • Sistem Informasi Sekolah</p>
+  </div>
+
+  <!-- INFO -->
+  <div class="info">
+    <div class="info-card">
+      <h4>👤 Profil</h4>
+      <p><b>Nama:</b> {{ nama }}</p>
+      <p><b>Kelas:</b> {{ kelas }}</p>
+      <p><b>Status:</b> Aktif</p>
+    </div>
+
+    <div class="info-card">
+      <h4>📘 Akademik</h4>
+      <p>📚 Mata Pelajaran</p>
+      <p>📝 Tugas & Nilai</p>
+      <p>📆 Jadwal Pelajaran</p>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="menu-title">Menu Utama</div>
+  <div class="menu">
+    <div class="menu-item">
+      <div class="menu-icon">📚</div>
+      <h4>Materi</h4>
+      <p>Belajar mandiri</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-icon">📝</div>
+      <h4>Tugas</h4>
+      <p>Kumpulkan tugas</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-icon">📊</div>
+      <h4>Nilai</h4>
+      <p>Hasil belajar</p>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-icon">📢</div>
+      <h4>Info</h4>
+      <p>Pengumuman</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

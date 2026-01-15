@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="bg-gradient-to-r from-pink-50 to-purple-50 p-8 rounded-xl shadow mb-8">
+  <h2 class="text-3xl font-bold text-purple-800 mb-4">📸 Galeri Foto</h2>
+  <p class="text-gray-700 leading-relaxed mb-6">
+    Dokumentasi berbagai kegiatan SMA Muhammadiyah 4 Songgon.
+  </p>
+
+  {% if galeri %}
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% for g in galeri %}
+<div class="bg-white rounded-lg shadow">
+  <img
+    src="{{ url_for('static', filename='uploads/galeri/' + g['gambar']) }}"
+    alt="{{ g['judul'] }}"
+    class="w-full h-48 object-cover rounded-t-lg">
+  <div class="p-3">
+    <h3 class="font-semibold">{{ g['judul'] }}</h3>
+  </div>
+</div>
+{% endfor %}
+  </div>
+  {% else %}
+  <p class="text-gray-500"></p>
+  {% endif %}
+</section>
+
+{% endblock %}

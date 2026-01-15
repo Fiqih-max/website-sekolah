@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ aksi }} Berita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-500 to-cyan-400 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-3xl bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-3xl font-bold text-gray-800">
+        {{ aksi }} Berita
+      </h2>
+      <a
+        href="{{ url_for('admin_berita') }}"
+        class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition"
+      >
+        ← Kembali
+      </a>
+    </div>
+
+    <!-- Form -->
+    <form method="post" class="space-y-6">
+
+      <!-- Judul -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Judul Berita
+        </label>
+        <input
+          type="text"
+          name="judul"
+          value="{{ berita[1] if berita else '' }}"
+          required
+          placeholder="Masukkan judul berita"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >
+      </div>
+
+      <!-- Isi -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          Isi Berita
+        </label>
+        <textarea
+          name="isi"
+          required
+          placeholder="Tulis isi berita di sini..."
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 h-56 resize-y
+                 focus:outline-none focus:ring-4 focus:ring-indigo-300
+                 focus:border-indigo-500 transition"
+        >{{ berita[2] if berita else '' }}</textarea>
+      </div>
+
+      <!-- Aksi -->
+      <div class="flex justify-between items-center pt-6">
+
+        <button
+          type="submit"
+          class="bg-gradient-to-r from-indigo-600 to-blue-600
+                 text-white px-8 py-3 rounded-xl font-semibold
+                 hover:scale-105 hover:shadow-xl transition"
+        >
+          {{ aksi }} Berita
+        </button>
+
+        <a
+          href="{{ url_for('admin_dashboard') }}"
+          class="text-sm font-medium text-gray-600 hover:text-indigo-600 transition"
+        >
+          Ke Dashboard →
+        </a>
+      </div>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

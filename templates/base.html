@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMA Muhammadiyah 4 Songgon</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine JS -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+
+<body class="pt-20 bg-gray-50">
+
+<!-- ================= NAVBAR ================= -->
+<header x-data="{open:false}" class="fixed top-0 left-0 w-full z-50">
+  <nav class="bg-gradient-to-r from-blue-800 to-blue-700 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <img src="/static/images/logo-sekolah.png"
+             class="w-10 h-10 bg-white rounded-full p-1 shadow">
+        <span class="font-bold text-white text-sm sm:text-lg">
+          SMA Muhammadiyah 4 Songgon
+        </span>
+      </div>
+
+      <!-- ================= MENU DESKTOP ================= -->
+      <div class="hidden md:flex items-center gap-2 text-white font-medium">
+
+        <!-- Beranda -->
+        <a href="/"
+           class="px-4 py-2 rounded-lg hover:bg-blue-600
+           {% if request.path == '/' %}bg-yellow-400 text-blue-900{% endif %}">
+          Beranda
+        </a>
+
+        <!-- Profil -->
+        <div class="relative" x-data="{dd:false}">
+          <button
+            @mouseenter="dd=true" @mouseleave="dd=false"
+            class="px-4 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-600
+            {% if request.path.startswith('/profil') or request.path == '/ekstrakurikuler' %}
+              bg-yellow-400 text-blue-900
+            {% endif %}">
+            Profil
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div x-show="dd" x-transition
+            @mouseenter="dd=true" @mouseleave="dd=false"
+            class="absolute left-0 mt-2 bg-white text-gray-700 rounded-xl shadow-lg w-44 overflow-hidden">
+            <a href="/profil/alumni" class="block px-4 py-3 hover:bg-blue-50">Data Alumni</a>
+            <a href="/profil/guru" class="block px-4 py-3 hover:bg-blue-50">Data Guru</a>
+            <a href="/ekstrakurikuler" class="block px-4 py-3 hover:bg-blue-50">Ekstrakurikuler</a>
+          </div>
+        </div>
+
+        <!-- Berita -->
+        <a href="/berita"
+           class="px-4 py-2 rounded-lg hover:bg-blue-600
+           {% if request.path.startswith('/berita') %}bg-yellow-400 text-blue-900{% endif %}">
+          Berita
+        </a>
+
+        <!-- Galeri -->
+        <a href="/galeri"
+           class="px-4 py-2 rounded-lg hover:bg-blue-600
+           {% if request.path.startswith('/galeri') %}bg-yellow-400 text-blue-900{% endif %}">
+          Galeri
+        </a>
+
+        <!-- Kontak -->
+        <a href="/kontak"
+           class="px-4 py-2 rounded-lg hover:bg-blue-600
+           {% if request.path.startswith('/kontak') %}bg-yellow-400 text-blue-900{% endif %}">
+          Kontak
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button @click="open = !open" class="md:hidden text-white">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ================= MENU MOBILE ================= -->
+    <div x-show="open" x-transition
+      class="md:hidden bg-blue-700 text-white px-4 pb-4 space-y-2">
+
+      <a href="/"
+         class="block py-3 px-4 rounded-lg hover:bg-blue-600
+         {% if request.path == '/' %}bg-yellow-400 text-blue-900{% endif %}">
+        Beranda
+      </a>
+
+      <!-- Profil Mobile -->
+      <div x-data="{m:false}">
+        <button @click="m=!m"
+          class="w-full flex justify-between items-center py-3 px-4 rounded-lg hover:bg-blue-600
+          {% if request.path.startswith('/profil') or request.path == '/ekstrakurikuler' %}
+            bg-yellow-400 text-blue-900
+          {% endif %}">
+          Profil
+          <span>▾</span>
+        </button>
+
+        <div x-show="m" x-transition class="ml-4 mt-2 space-y-1">
+          <a href="/profil/alumni"
+             class="block py-2 px-4 rounded hover:bg-blue-600
+             {% if request.path == '/profil/alumni' %}bg-yellow-400 text-blue-900{% endif %}">
+            Alumni
+          </a>
+          <a href="/profil/guru"
+             class="block py-2 px-4 rounded hover:bg-blue-600
+             {% if request.path == '/profil/guru' %}bg-yellow-400 text-blue-900{% endif %}">
+            Guru
+          </a>
+          <a href="/ekstrakurikuler"
+             class="block py-2 px-4 rounded hover:bg-blue-600
+             {% if request.path == '/ekstrakurikuler' %}bg-yellow-400 text-blue-900{% endif %}">
+            Ekstrakurikuler
+          </a>
+        </div>
+      </div>
+
+      <a href="/berita"
+         class="block py-3 px-4 rounded-lg hover:bg-blue-600
+         {% if request.path.startswith('/berita') %}bg-yellow-400 text-blue-900{% endif %}">
+        Berita
+      </a>
+
+      <a href="/galeri"
+         class="block py-3 px-4 rounded-lg hover:bg-blue-600
+         {% if request.path.startswith('/galeri') %}bg-yellow-400 text-blue-900{% endif %}">
+        Galeri
+      </a>
+
+      <a href="/kontak"
+         class="block py-3 px-4 rounded-lg hover:bg-blue-600
+         {% if request.path.startswith('/kontak') %}bg-yellow-400 text-blue-900{% endif %}">
+        Kontak
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= CONTENT ================= -->
+<main class="max-w-7xl mx-auto px-4 py-6">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-gray-900 text-white mt-16">
+  <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm">
+    © 2025 SMA Muhammadiyah 4 Songgon · All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ aksi }} Nilai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">{{ aksi }} Nilai</h2>
+    <form method="post" class="space-y-4">
+      <div>
+        <label class="block font-medium">Nama:</label>
+        <input type="text" name="nama" required value="{{ nilai[1] if nilai else '' }}" class="w-full border px-3 py-2 rounded">
+      </div>
+      <div>
+        <label class="block font-medium">Mata Pelajaran:</label>
+        <input type="text" name="mapel" required value="{{ nilai[2] if nilai else '' }}" class="w-full border px-3 py-2 rounded">
+      </div>
+      <div>
+        <label class="block font-medium">Nilai:</label>
+        <input type="number" name="nilai" required value="{{ nilai[3] if nilai else '' }}" class="w-full border px-3 py-2 rounded">
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{{ aksi }}</button>
+      <a href="{{ url_for('admin_nilai') }}" class="ml-2 text-blue-600">Kembali</a>
+    </form>
+  </div>
+</body>
+</html>

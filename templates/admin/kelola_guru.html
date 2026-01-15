@@ -1,0 +1,72 @@
+{% extends 'admin/base_admin.html' %}
+{% block content %}
+
+<!-- Judul Halaman -->
+<div class="flex justify-between items-center mb-6">
+  <h2 class="text-2xl font-bold text-gray-800">📋 Data Guru</h2>
+
+  <a href="{{ url_for('tambah_guru') }}"
+     class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
+    + Tambah Guru
+  </a>
+</div>
+
+<!-- Tabel Data Guru -->
+<div class="bg-white rounded-xl shadow overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-100 text-gray-700">
+      <tr>
+        <th class="px-4 py-3 text-center">No</th>
+        <th class="px-4 py-3 text-center">Foto</th>
+        <th class="px-4 py-3">Nama</th>
+        <th class="px-4 py-3">NBM</th>
+        <th class="px-4 py-3 text-center">Aksi</th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y">
+      {% for g in guru %}
+      <tr class="hover:bg-gray-50 transition">
+        <td class="px-4 py-3 text-center font-medium">
+          {{ loop.index }}
+        </td>
+
+        <td class="px-4 py-3 text-center">
+          <img src="{{ url_for('static', filename='uploads/guru/' ~ g['foto']) }}"
+               alt="Foto {{ g['nama'] }}"
+               class="w-12 h-12 rounded-full object-cover mx-auto shadow">
+        </td>
+
+        <td class="px-4 py-3 font-semibold text-gray-800">
+          {{ g['nama'] }}
+        </td>
+
+        <td class="px-4 py-3 text-gray-600">
+          {{ g['nip'] }}
+        </td>
+
+        <td class="px-4 py-3 text-center space-x-2">
+          <a href="{{ url_for('edit_guru', id=g['id']) }}"
+             class="text-blue-600 hover:underline font-medium">
+            Edit
+          </a>
+          |
+          <a href="{{ url_for('hapus_guru', id=g['id']) }}"
+             class="text-red-600 hover:underline font-medium"
+             onclick="return confirm('Yakin hapus data guru ini?')">
+            Hapus
+          </a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="text-center py-6 text-gray-500">
+          Data guru belum tersedia
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

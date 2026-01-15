@@ -1,0 +1,16 @@
+<h2>Nilai Saya</h2>
+
+<table border="1">
+<tr>
+    <th>Mata Pelajaran</th>
+    <th>Nilai</th>
+</tr>
+{% for n in nilai %}
+<tr>
+    <td>{{ n[0] }}</td>
+    <td>{{ n[1] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="/user/dashboard">Kembali</a>

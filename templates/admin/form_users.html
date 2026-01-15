@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ aksi }} User</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6366f1, #3b82f6, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #1f2937;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            border: 1.5px solid #e5e7eb;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.25);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(34,197,94,0.4);
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-cancel:hover {
+            background: #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>{{ aksi }} User</h2>
+
+    <form method="post">
+        <input type="text" name="username" placeholder="Username"
+               value="{{ user.username if user else '' }}" required>
+
+        <input type="text" name="password" placeholder="Password"
+               value="{{ user.password if user else '' }}" required>
+
+        <input type="text" name="nama" placeholder="Nama Lengkap"
+               value="{{ user.nama if user else '' }}" required>
+
+        <input type="text" name="kelas" placeholder="Kelas"
+               value="{{ user.kelas if user else '' }}" required>
+
+        <!-- Tombol -->
+        <div class="actions">
+            <button type="button" class="btn-cancel" onclick="history.back()">
+                Batal
+            </button>
+
+            <button type="submit" class="btn-submit">
+                {{ aksi }}
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

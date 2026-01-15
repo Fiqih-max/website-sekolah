@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kelola Pendaftaran</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A',
+            secondary: '#14B8A6',
+            accent: '#F97316',
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-emerald-50 to-orange-50 min-h-screen">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="w-64 bg-gradient-to-b from-primary to-secondary text-white shadow-xl flex flex-col p-6 space-y-4 rounded-r-2xl">
+    <h1 class="text-2xl font-extrabold mb-6">🛠️ Admin Panel</h1>
+    <nav class="flex flex-col gap-2 text-sm">
+      <a href="/admin/dashboard" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+      </a>
+      <a href="/admin/berita" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="newspaper" class="w-5 h-5"></i> Berita
+      </a>
+      <a href="/admin/alumni" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="users" class="w-5 h-5"></i> Alumni
+      </a>
+      <a href="/admin/guru" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-check" class="w-5 h-5"></i> Data Guru
+      </a>
+      <a href="/admin/users" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="user-cog" class="w-5 h-5"></i> Kelola Users
+      </a>
+      <a href="/admin/ekstrakurikuler" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="trophy" class="w-5 h-5"></i> Ekstrakurikuler
+      </a>
+      <a href="/admin/galeri" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="image" class="w-5 h-5"></i> Galeri
+      </a>
+      <a href="/admin/pendaftaran" class="flex items-center gap-2 p-3 rounded-lg hover:bg-accent transition">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i> Pendaftaran
+      </a>
+      <hr class="my-3 border-white/40">
+      <a href="/admin/logout" class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-500 transition text-red-200">
+        <i data-lucide="log-out" class="w-5 h-5"></i> Logout
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 p-8">
+    <div class="bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-xl">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold text-primary">Kelola Pendaftaran</h2>
+        <a href="{{ url_for('tambah_pendaftaran') }}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md transition">
+          + Tambah Pendaftar
+        </a>
+      </div>
+
+      <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full border border-gray-300 rounded-lg overflow-hidden">
+          <thead class="bg-gradient-to-r from-primary to-secondary text-white">
+            <tr>
+              <th class="p-3 border">#</th>
+              <th class="p-3 border">Nama</th>
+              <th class="p-3 border">Asal Sekolah</th>
+              <th class="p-3 border">No. HP</th>
+              <th class="p-3 border text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white text-gray-800">
+            {% for p in pendaftar %}
+            <tr class="even:bg-gray-50 hover:bg-emerald-50 border-t transition">
+              <td class="p-3 border">{{ loop.index }}</td>
+              <td class="p-3 border">{{ p.nama }}</td>
+              <td class="p-3 border">{{ p.asal_sekolah }}</td>
+              <td class="p-3 border">{{ p.no_hp }}</td>
+             <td class="p-3 border space-x-2 text-center">
+
+  <!-- Edit -->
+  <a href="{{ url_for('edit_pendaftaran', id=p.id) }}"
+     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded shadow-sm transition">
+     Edit
+  </a>
+
+  <!-- Hapus -->
+  <a href="{{ url_for('hapus_pendaftaran', id=p.id) }}"
+     class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow-sm transition"
+     onclick="return confirm('Yakin hapus data ini?')">
+     Hapus
+  </a>
+
+  {% if p.status == 'baru' %}
+    <!-- TERIMA -->
+    <a href="{{ url_for('terima_pendaftaran', id=p.id) }}"
+       class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded shadow-sm transition">
+       Terima
+    </a>
+
+    <!-- TOLAK -->
+    <a href="{{ url_for('tolak_pendaftaran', id=p.id) }}"
+       class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow-sm transition"
+       onclick="return confirm('Yakin menolak pendaftaran ini?')">
+       Tolak
+    </a>
+
+  {% elif p.status == 'diterima' %}
+    <span class="text-green-700 font-semibold">✔ Diterima</span>
+
+  {% elif p.status == 'ditolak' %}
+    <span class="text-red-600 font-semibold">✖ Ditolak</span>
+  {% endif %}
+
+  <!-- ================= CHAT WA OTOMATIS ================= -->
+  {% set nomor = p.no_hp %}
+  {% if nomor.startswith('0') %}
+    {% set nomor = '62' ~ nomor[1:] %}
+  {% endif %}
+
+  {% if p.status == 'diterima' %}
+{% set wa_text =
+  "Halo " ~ p.nama ~ "\n\n"
+  ~ "🎉 SELAMAT! Pendaftaran Anda *DITERIMA* di SMA.\n\n"
+  ~ "🔐 Silakan BUAT AKUN SISWA secara mandiri melalui link berikut:\n"
+  ~ "http://127.0.0.1:5000/users/login\n\n"
+  ~ "Setelah membuat akun, Anda dapat login dan mengakses layanan siswa.\n\n"
+  ~ "Terima kasih."
+%}
+
+{% elif p.status == 'ditolak' %}
+{% set wa_text =
+  "Halo " ~ p.nama ~ "\n\n"
+  ~ "Mohon maaf, pendaftaran Anda *BELUM DAPAT KAMI TERIMA*.\n"
+  ~ "Terima kasih atas minat Anda.\n\n"
+  ~ "Salam hormat,\nAdmin SMA"
+%}
+
+{% else %}
+{% set wa_text =
+  "Halo " ~ p.nama ~ "\n"
+  ~ "Pendaftaran Anda sedang kami proses.\n"
+  ~ "Mohon menunggu informasi selanjutnya."
+%}
+{% endif %}
+
+{% set wa_link = "https://wa.me/" ~ nomor ~ "?text=" ~ wa_text | urlencode %}
+
+  <a href="{{ wa_link }}" target="_blank"
+     class="bg-teal-500 hover:bg-teal-600 text-white px-3 py-1 rounded shadow-sm transition">
+     Chat WA
+  </a>
+
+</td>
+
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="p-3 text-center text-gray-500">Belum ada pendaftar</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) window.lucide.replace();
+  });
+</script>
+</body>
+</html>

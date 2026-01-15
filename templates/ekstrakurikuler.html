@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Ekstrakurikuler</h2>
+
+<ul>
+  {% for e in ekstrakurikuler %}
+    <li>
+      <b>{{ e.nama }}</b><br>
+      {{ e.deskripsi }}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
